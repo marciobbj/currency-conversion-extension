@@ -1,0 +1,24 @@
+{
+    "name": "ICurrencyConverter",
+    "description": "Get currency convertions instantaneously",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "host_permissions": [
+      "*://*/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {},
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+      ],
+    "background": {
+      "service_worker": "main.js"
+    }
+}
