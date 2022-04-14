@@ -7,12 +7,13 @@ chrome.runtime.onMessage.addListener((request, sender) => {
           chrome.scripting.executeScript(
             {
               target: { tabId: tabId },
-              function: getSelectionText,
+              function: getSupportedQuotes,
             },
             (resp) => {
               const b = resp[0].result;
               console.log("setting value of selection in storage");
-              chrome.storage.sync.set({ value: b });
+              console.log(b)
+              chrome.storage.sync.set({ prices: b });
               chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
               console.log("setting popup")
             }
@@ -23,14 +24,18 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     return true;
   });
   
-  function getSelectionText() {
-    let selection = document.getSelection().toString();
-    //validate selection
-    if (isNaN(Number(selection))) {
-      selection = 0;
-    } else {
-      selection = Number(selection);
-    }
-    return selection;
+  function getSupportedQuotes() {
+    // fetch current prices
+    return {
+      "BRL-USD": 0.21,
+      "USD-BRL": 4.69,
+      "EUR-USD": 1.09,
+      "USD-EUR": 0.92,
+      "BRL-EUR": 0.20,
+      "EUR-BRL": 5.11,
+      "BRL-BRL": 1,
+      "EUR-EUR": 1,
+      "USD-USD": 1
+    };
   }
   
