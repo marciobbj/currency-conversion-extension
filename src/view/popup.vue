@@ -37,7 +37,7 @@
       />
       <p v-if="error">{{ error }}</p>
     </div>
-    <footer style="margin: 10px">marcio bernardes 2022</footer>
+    <footer style="margin: 10px;">mj</footer>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ export default {
       price: 0,
       pair: "",
       options: [
-        { text: "Dolar", slug: "USD", value: 1 },
+        { text: "Dollar", slug: "USD", value: 1 },
         { text: "Euro", slug: "EUR", value: 2 },
         { text: "BRL", slug: "BRL", value: 3 },
       ],
@@ -96,7 +96,7 @@ export default {
   margin: 0 0 15px 0;
   height: 25px;
   border: 0.3px solid rgb(233, 233, 233);
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: rgb(233, 233, 233);
   text-align: center;
   color: rgb(153, 153, 153);
@@ -107,7 +107,7 @@ export default {
   margin: 0 0 15px 0;
   height: 25px;
   border: 0.3px solid rgb(233, 233, 233);
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: rgb(233, 233, 233);
   text-align: center;
   color: rgb(153, 153, 153);
@@ -122,7 +122,7 @@ export default {
   width: 75px;
   margin: 0 0 15px 0;
   height: 25px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 0.3px solid rgb(233, 233, 233);
   background-color: rgb(233, 233, 233);
   text-align: center;
