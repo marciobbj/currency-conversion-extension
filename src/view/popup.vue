@@ -1,33 +1,43 @@
 <template>
   <div class="main_app">
     <h1>Currency Conversion</h1>
-    <h2>$ {{ price }}</h2>
+    <div id="header">
+      <h2>${{ price }}</h2>
+      <h3>{{ this.from }} - {{ this.to }}</h3>
+    </div>
+    <div class="form_container">
+      <div id="pair_group">
+        <select id="from" v-model="from">
+          <option :value="null" disabled selected>USD...</option>
+          <option
+            v-for="option in options"
+            :value="option.slug"
+            :key="option.value"
+          >
+            {{ option.text }}
+          </option>
+        </select>
+        <select id="to" placeholder="to" v-model="to">
+          <option :value="null" disabled selected>EUR..</option>
+          <option
+            v-for="option in options"
+            :value="option.slug"
+            :key="option.value"
+          >
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
 
-    <h3>{{ this.from }}-{{ this.to }}</h3>
-
-    from:
-    <select v-model="from">
-      <option
-        v-for="option in options"
-        :value="option.slug"
-        :key="option.value"
-      >
-        {{ option.text }}
-      </option>
-    </select>
-    to:
-    <select v-model="to">
-      <option
-        v-for="option in options"
-        :value="option.slug"
-        :key="option.value"
-      >
-        {{ option.text }}
-      </option>
-    </select>
-
-    <input style="margin-top: 15px" @input="calculatePrice" type="number" />
-    <p v-if="error">{{ error }}</p>
+      <input
+        id="user_input"
+        placeholder="Price..."
+        @input="calculatePrice"
+        type="number"
+      />
+      <p v-if="error">{{ error }}</p>
+    </div>
+    <footer style="margin: 10px">marcio bernardes 2022</footer>
   </div>
 </template>
 
@@ -36,13 +46,12 @@ export default {
   name: "popupView",
   data() {
     return {
-      msg: 0,
       to: null,
       from: null,
       quotes: {},
       error: "",
       price: 0,
-      userInput: 0,
+      pair: "",
       options: [
         { text: "Dolar", slug: "USD", value: 1 },
         { text: "Euro", slug: "EUR", value: 2 },
@@ -61,9 +70,8 @@ export default {
         this.error = "must select a pair";
         return;
       }
-      let pair = `${this.from}-${this.to}`;
-      console.log(pair);
-      this.price = (this.quotes[pair] * event.target.value).toFixed(2);
+      this.pair = `${this.from}-${this.to}`;
+      this.price = (this.quotes[this.pair] * event.target.value).toFixed(2);
       this.error = null;
     },
   },
@@ -77,10 +85,56 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  width: 300px;
-  height: 300px;
+  width: 275px;
+  height: 220px;
+  padding: 0px 25px;
   text-align: center;
   align-self: center;
+}
+#from {
+  width: 100px;
+  margin: 0 0 15px 0;
+  height: 25px;
+  border: 0.3px solid rgb(233, 233, 233);
+  border-radius: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+  color: rgb(153, 153, 153);
+  font-size: 10px;
+}
+#to {
+  width: 100px;
+  margin: 0 0 15px 0;
+  height: 25px;
+  border: 0.3px solid rgb(233, 233, 233);
+  border-radius: 10px;
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+  color: rgb(153, 153, 153);
+  font-size: 10px;
+}
+#pair_group {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+#user_input {
+  width: 75px;
+  margin: 0 0 15px 0;
+  height: 25px;
+  border-radius: 10px;
+  border: 0.3px solid rgb(233, 233, 233);
+  background-color: rgb(233, 233, 233);
+  text-align: center;
+  color: rgb(153, 153, 153);
+  font-size: 10px;
+}
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  margin: 0;
 }
 </style>
