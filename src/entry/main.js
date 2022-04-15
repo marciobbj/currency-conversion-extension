@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener((request) => {
           },
           (response) => {
             const prices = response[0].result;
+            console.log(prices)
             chrome.storage.sync.set({ prices: prices });
             chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
           }
@@ -17,19 +18,15 @@ chrome.runtime.onMessage.addListener((request) => {
     }
     return true;
   });
+// buf.toString('base64')
+function getSupportedQuotes() {
+    const url = `http://localhost:8001/quotes/` 
+    let username = 'Th3B3sTuS3RN4m3';
+    let password = '2HB9actVqBAg%8!gSE5WFdV3^RMKpKca9f^8364X7npC7Q';
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+    let response = fetch(url, {method: 'GET', headers: headers}).then(response => response.json()).then(data => data)
+    return response
+}
   
-  function getSupportedQuotes() {
-    // fetch current prices
-    return {
-      "BRL-USD": 0.21,
-      "USD-BRL": 4.69,
-      "EUR-USD": 1.09,
-      "USD-EUR": 0.92,
-      "BRL-EUR": 0.20,
-      "EUR-BRL": 5.11,
-      "BRL-BRL": 1,
-      "EUR-EUR": 1,
-      "USD-USD": 1
-    };
-  }
   

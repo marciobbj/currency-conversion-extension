@@ -60,9 +60,16 @@ export default {
     };
   },
   mounted() {
-    chrome.storage.sync.get("prices", (data) => {
-      this.quotes = data.prices;
-    });
+    let prices = chrome.storage.sync.get("prices")
+    // check if prices is in storage and prices has any property
+    if (!prices || !Object.prototype.hasOwnProperty.call(prices, ['BRL-USD'])) { 
+      chrome.storage.sync.get("prices", (data) => {
+        this.quotes = data.prices;
+      })
+    } else {
+      let prices = chrome.storage.sync.get("prices")
+      this.quotes = prices
+    }
   },
   methods: {
     calculatePrice(event) {

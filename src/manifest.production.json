@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "ICurrencyConversion",
+    "name": "Currency Today",
     "description": "chrome extension",
     "version": "0.0.1",
     "background": {
@@ -16,7 +16,8 @@
             ],
             "js": [
                 "/content.js"
-            ]
+            ],
+            "all_frames": true
         }
     ]
 }

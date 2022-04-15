@@ -1,5 +1,5 @@
 {
-    "name": "ICurrencyConverter",
+    "name": "Currency Today",
     "description": "Get currency convertions instantaneously",
     "version": "0.0.1",
     "manifest_version": 3,
@@ -9,7 +9,8 @@
     "content_scripts": [
       {
         "matches": ["*://*/*"],
-        "js": ["content.js"]
+        "js": ["content.js"],
+        "all_frames": true
       }
     ],
     "action": {},
