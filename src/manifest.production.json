@@ -1,23 +1,29 @@
 {
-    "manifest_version": 3,
     "name": "Currency Today",
-    "description": "chrome extension",
+    "description": "Get currency convertions instantaneously",
     "version": "0.0.1",
-    "background": {
-        "service_worker": "/main.js"
+    "manifest_version": 3,
+    "icons": { 
+      "16": "icon16.png",
+      "48": "icon48.png",
+     "128": "icon128.png" 
     },
-    "action": {
-        "default_popup": "popup.html"
-    },
+    "host_permissions": [
+      "*://*/*"
+    ],
     "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "/content.js"
-            ],
-            "all_frames": true
-        }
-    ]
+      {
+        "matches": ["*://*/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {},
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+      ],
+    "background": {
+      "service_worker": "main.js"
+    }
 }

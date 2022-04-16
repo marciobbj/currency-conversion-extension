@@ -1,11 +1,17 @@
 <template>
   <div class="main_app">
-    <h1>Currency Conversion</h1>
-    <div id="header">
-      <h2>${{ price }}</h2>
-      <h3>{{ this.from }} - {{ this.to }}</h3>
-    </div>
+    <h1 style="">currency convertion</h1>
     <div class="form_container">
+      <input
+        id="user_input"
+        placeholder="the price..."
+        @input="calculatePrice"
+        type="number"
+      />
+      <div id="header">
+        <h2>${{ price }}</h2>
+        <h2>{{ this.from }} - {{ this.to }}</h2>
+      </div>
       <div id="pair_group">
         <select id="from" v-model="from">
           <option :value="null" disabled selected>USD...</option>
@@ -14,7 +20,7 @@
             :value="option.slug"
             :key="option.value"
           >
-            {{ option.text }}
+            {{ option.slug }}
           </option>
         </select>
         <select id="to" placeholder="to" v-model="to">
@@ -24,20 +30,13 @@
             :value="option.slug"
             :key="option.value"
           >
-            {{ option.text }}
+            {{ option.slug }}
           </option>
         </select>
       </div>
-
-      <input
-        id="user_input"
-        placeholder="Price..."
-        @input="calculatePrice"
-        type="number"
-      />
-      <p v-if="error">{{ error }}</p>
+      <b><p v-if="error">{{ error }}</p></b>
     </div>
-    <footer style="margin: 10px;">mj</footer>
+    <footer style=""><b>mj</b></footer>
   </div>
 </template>
 
@@ -60,16 +59,13 @@ export default {
     };
   },
   mounted() {
-    let prices = chrome.storage.sync.get("prices")
     // check if prices is in storage and prices has any property
-    if (!prices || !Object.prototype.hasOwnProperty.call(prices, ['BRL-USD'])) { 
-      chrome.storage.sync.get("prices", (data) => {
-        this.quotes = data.prices;
-      })
-    } else {
-      let prices = chrome.storage.sync.get("prices")
-      this.quotes = prices
-    }
+    chrome.storage.sync.get("prices", (result) => {
+      this.quotes = result.prices;
+    });
+  },
+  unmounted() {
+    //chrome.storage.sendMessage({message: "remove-item", key: "prices"})
   },
   methods: {
     calculatePrice(event) {
@@ -86,39 +82,46 @@ export default {
 </script>
 
 <style>
+html {
+  background-color: #cecece;
+  padding: 0;
+}
 .main_app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #efefef;
+  border: 1px solid #cecece;
   width: 275px;
-  height: 220px;
-  padding: 0px 25px;
+  height: 300px;
+  padding: 0px;
+  margin: 0;
   text-align: center;
   align-self: center;
+  color: rgb(0, 0, 0);
 }
 #from {
   width: 100px;
   margin: 0 0 15px 0;
-  height: 25px;
-  border: 0.3px solid rgb(233, 233, 233);
-  border-radius: 5px;
-  background-color: rgb(233, 233, 233);
+  height: 35px;
+  border-radius: 1px;
+  background-color: #efefef;
+  border: 0.3px solid #3c3c3c7b;
   text-align: center;
-  color: rgb(153, 153, 153);
-  font-size: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
 }
 #to {
   width: 100px;
   margin: 0 0 15px 0;
-  height: 25px;
-  border: 0.3px solid rgb(233, 233, 233);
-  border-radius: 5px;
-  background-color: rgb(233, 233, 233);
+  height: 35px;
+  background-color: #efefef;
+  border: 0.3px solid #3c3c3c7b;
+  border-radius: 1px;
   text-align: center;
-  color: rgb(153, 153, 153);
-  font-size: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
 }
 #pair_group {
   display: flex;
@@ -126,15 +129,20 @@ export default {
   flex-direction: row;
 }
 #user_input {
-  width: 75px;
-  margin: 0 0 15px 0;
-  height: 25px;
-  border-radius: 5px;
-  border: 0.3px solid rgb(233, 233, 233);
-  background-color: rgb(233, 233, 233);
+  width: 100%;
+  margin: 0 0 0 0;
+  padding: 0;
+  height: 50px;
+  border-radius: 0px;
+  border: 0.3px solid #cecece;
+  background-color: #cecece;
   text-align: center;
-  color: rgb(153, 153, 153);
-  font-size: 10px;
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
 }
 #header {
   display: flex;
@@ -142,6 +150,6 @@ export default {
   justify-content: space-between;
   align-items: baseline;
   gap: 20px;
-  margin: 0;
+  padding: 10px 20px;
 }
 </style>
