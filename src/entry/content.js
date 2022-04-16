@@ -1,14 +1,12 @@
 chrome.runtime.sendMessage({ message: "get-selection-data" });
 
-// buf.toString('base64')
-
 async function getCurrenciesQuotes() {
   let products;
   products = chrome.storage.sync.get("prices", (result) => {
     products = result.prices;
     if (!products) {
       
-      const url = 'http://143.198.147.98/quotes/'
+      const url = 'http://currency-pair-api.digital/quotes/'
 
       fetch(url, { method: "GET"})
         .then((response) => response.json())
