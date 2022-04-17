@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener((event) => {
   if (event.code === "get-selection-data") {
-    // app entry point, receiver the first message when the content.js sends get-selection-data
-    // and sets the popup
+    // app entry point, receives the first message when the content.js 
+    // sends get-selection-data and sets the popup
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       let tabId = tabs[0].id;
       chrome.action.setPopup({ tabId: tabId, popup: "popup.html" });
