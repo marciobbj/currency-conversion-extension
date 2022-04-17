@@ -1,6 +1,6 @@
 <template>
   <div class="main_app">
-    <h1 style="">currency convertion</h1>
+    <h1 style="">currency today</h1>
     <div class="form_container">
       <input
         id="user_input"
