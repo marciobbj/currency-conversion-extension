@@ -17,26 +17,28 @@
           <option :value="null" disabled selected>USD...</option>
           <option
             v-for="option in options"
-            :value="option.slug"
-            :key="option.value"
+            :value="option.name"
+            :key="option.__id"
           >
-            {{ option.slug }}
+            {{ option.name }}
           </option>
         </select>
         <select id="to" placeholder="to" v-model="to">
           <option :value="null" disabled selected>EUR..</option>
           <option
             v-for="option in options"
-            :value="option.slug"
-            :key="option.value"
+            :value="option.name"
+            :key="option.__id"
           >
-            {{ option.slug }}
+            {{ option.name }}
           </option>
         </select>
       </div>
-      <b><p v-if="error">{{ error }}</p></b>
+      <b
+        ><p v-if="error" style="color: red">{{ error }}</p></b
+      >
     </div>
-    <footer style=""><b>mj</b></footer>
+    <footer v-if="!error" style="margin-top: 15px"><b>mj</b></footer>
   </div>
 </template>
 
@@ -51,15 +53,14 @@ export default {
       error: "",
       price: 0,
       pair: "",
-      options: [
-        { text: "Dollar", slug: "USD", value: 1 },
-        { text: "Euro", slug: "EUR", value: 2 },
-        { text: "BRL", slug: "BRL", value: 3 },
-      ],
+      options: [],
     };
   },
   mounted() {
     // check if prices is in storage and prices has any property
+    chrome.storage.sync.get("slugs", (result) => {
+      this.options = result.slugs.slugs;
+    });
     chrome.storage.sync.get("prices", (result) => {
       this.quotes = result.prices;
     });
@@ -140,7 +141,8 @@ html {
   color: rgb(0, 0, 0);
   font-size: 22px;
 }
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;
   opacity: 1; /* Firefox */
 }
