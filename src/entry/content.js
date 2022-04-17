@@ -1,4 +1,4 @@
-chrome.runtime.sendMessage({ code: "get-selection-data" });
+chrome.runtime.sendMessage({ code: "show-popup" });
 
 async function getCurrenciesQuotes() {
   let products;
