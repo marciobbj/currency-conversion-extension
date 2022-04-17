@@ -6,7 +6,7 @@ async function getCurrenciesQuotes() {
     products = result.prices;
     if (!products) {
       
-      const url = 'http://currency-pair-api.digital/quotes/'
+      const url = 'https://currency-pair-api.digital/quotes/'
 
       fetch(url, { method: "GET"})
         .then((response) => response.json())
