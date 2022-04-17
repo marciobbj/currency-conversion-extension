@@ -143,7 +143,7 @@ html {
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
+  color: rgba(0, 0, 0, 0.61);
   opacity: 1; /* Firefox */
 }
 #header {
