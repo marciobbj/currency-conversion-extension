@@ -5,8 +5,7 @@ async function getCurrenciesQuotes() {
   products = chrome.storage.sync.get("prices", (result) => {
     products = result.prices;
     if (!products) {
-      let url = "https://currency-pair-api.digital/quotes/";
-      //url = 'http://localhost:8001/quotes/'
+      let url = "https://currency-pair-api.digital/api/v1/quotes/";
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
@@ -34,7 +33,7 @@ async function getSlugs() {
       value: cached_slugs,
     });
   }
-  let url = "https://currency-pair-api.digital/slugs/";
+  let url = "https://currency-pair-api.digital/api/v1/slugs/";
   let response = await fetch(url, { method: "GET" });
   data = await response.json();
   chrome.runtime.sendMessage({
