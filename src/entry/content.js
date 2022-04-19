@@ -26,21 +26,23 @@ getCurrenciesQuotes();
 async function getSlugs() {
   const cached_slugs = await chrome.storage.sync.get("slugs");
   let data;
-  if (cached_slugs) {
+  if (cached_slugs.slugs) {
     chrome.runtime.sendMessage({
       code: "add-item",
       key: "slugs",
       value: cached_slugs,
     });
+  } else {
+    let url = "https://currency-pair-api.digital/api/v1/slugs/";
+    let response = await fetch(url, { method: "GET" });
+    data = await response.json();
+    chrome.runtime.sendMessage({
+      code: "add-item",
+      key: "slugs",
+      value: data,
+    });
   }
-  let url = "https://currency-pair-api.digital/api/v1/slugs/";
-  let response = await fetch(url, { method: "GET" });
-  data = await response.json();
-  chrome.runtime.sendMessage({
-    code: "add-item",
-    key: "slugs",
-    value: data,
-  });
+
   return true;
 }
 getSlugs();
