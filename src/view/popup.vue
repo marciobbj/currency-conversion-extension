@@ -14,7 +14,7 @@
       </div>
       <div id="pair_group">
         <select id="from" v-model="from" @change="fromChangeCurrency">
-          <option :value="null" disabled selected>USD...</option>
+          <option :value="null" disabled selected>...</option>
           <option
             v-for="option in options"
             :value="option.name"
@@ -25,7 +25,7 @@
         </select>
         <button id="switch" v-html="convertIcon" @click="switchCurrency"/>
         <select id="to" placeholder="to" v-model="to" @change="toChangeCurrency">
-          <option :value="null" disabled selected>EUR..</option>
+          <option :value="null" disabled selected>...</option>
           <option
             v-for="option in options"
             :value="option.name"
