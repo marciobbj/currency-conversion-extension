@@ -12,8 +12,8 @@ Now open your Google Chrome and go to the extension menu in the chrome://extensi
 
 If you have the developer mode enabled you should be able to locate the `Load unpacked extension`option, click on it and point to the dist folder.
 
-
-
+## Demo
+![extension demo](https://github.com/marciobbj/currency-conversion-extension/blob/master/media/demo.gif)
 ## Project setup
 ```
 npm install
