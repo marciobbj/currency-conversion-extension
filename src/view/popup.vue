@@ -4,7 +4,7 @@
     <div class="form_container">
       <input
         id="user_input"
-        placeholder="the price..."
+        placeholder="price"
         @input="updatePrice"
         type="number"
       />
@@ -56,7 +56,7 @@ export default {
       pair: "",
       options: [],
       rawUserInput: 0,
-      convertIcon: "&#11138",
+      convertIcon: "<b>&#11138</b>",
     };
   },
   mounted() {
@@ -114,55 +114,57 @@ export default {
 
 <style>
 html {
-  background-color: #cecece;
+  background-color: #333333;
   padding: 0;
+  margin: 0;
 }
 .main_app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: #efefef;
-  border: 1px solid #cecece;
+  background-color: #333333;
+  border: 1px solid #939393;
+  border-radius: 4px;
   width: 275px;
   height: 300px;
-  padding: 0px;
+  padding: 10px;
   margin: 0;
   text-align: center;
   align-self: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 #from {
   width: 100px;
   margin: 0 0 15px 0;
   height: 35px;
-  border-radius: 1px;
-  background-color: #efefef;
-  border: 0.3px solid #3c3c3c7b;
+  border-radius: 4px;
+  background-color: #333333;
+  border: 0.3px solid #939393;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 15px;
 }
 #to {
   width: 100px;
   margin: 0 0 15px 0;
   height: 35px;
-  background-color: #efefef;
-  border: 0.3px solid #3c3c3c7b;
-  border-radius: 1px;
+  background-color: #333333;
+  border: 0.3px solid #939393;
+  border-radius: 4px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 15px;
 }
 #switch {
   width: 40px;
   margin: 0 0 15px 0;
   height: 35px;
-  background-color: #efefef;
-  border: 0.3px solid #3c3c3c7b;
-  border-radius: 1px;
+  background-color: #333333;
+  border: 0.3px solid #939393;
+  border-radius: 4px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 15px;
 }
 #pair_group {
@@ -175,16 +177,16 @@ html {
   margin: 0 0 0 0;
   padding: 0;
   height: 50px;
-  border-radius: 0px;
-  border: 0.3px solid #cecece;
-  background-color: #cecece;
+  border-radius: 4px;
+  border: 0.3px solid #939393;
+  background-color: #333333;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 22px;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgba(0, 0, 0, 0.61);
+  color: rgb(255, 255, 255);
   opacity: 1; /* Firefox */
 }
 #header {
