@@ -20,7 +20,6 @@
     "action": {},
     "permissions": [
         "activeTab",
-        "scripting",
         "storage"
       ],
     "background": {
