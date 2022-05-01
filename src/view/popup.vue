@@ -89,16 +89,16 @@ export default {
 
       this.from = tempTo
       this.to = tempFrom
-      this.realCalc(this.price)
+      this.realCalc(this.rawUserInput)
     },
     toChangeCurrency(event) {
       this.to = event.target.value
-      this.realCalc(this.price)
+      this.realCalc(this.rawUserInput)
 
     },
     fromChangeCurrency(event) {
       this.from = event.target.value
-      this.realCalc(this.price)
+      this.realCalc(this.rawUserInput)
     },
     realCalc(price) {
       if (!this.from || !this.to) {
