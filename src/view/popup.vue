@@ -5,7 +5,7 @@
       <input
         id="user_input"
         placeholder="the price..."
-        @input="calculatePrice"
+        @input="updatePrice"
         type="number"
       />
       <div id="header">
@@ -13,7 +13,7 @@
         <h2>{{ this.from }} - {{ this.to }}</h2>
       </div>
       <div id="pair_group">
-        <select id="from" v-model="from">
+        <select id="from" v-model="from" @change="fromChangeCurrency">
           <option :value="null" disabled selected>USD...</option>
           <option
             v-for="option in options"
@@ -23,7 +23,8 @@
             {{ option.name }}
           </option>
         </select>
-        <select id="to" placeholder="to" v-model="to">
+        <button id="switch" v-html="convertIcon" @click="switchCurrency"/>
+        <select id="to" placeholder="to" v-model="to" @change="toChangeCurrency">
           <option :value="null" disabled selected>EUR..</option>
           <option
             v-for="option in options"
@@ -54,6 +55,8 @@ export default {
       price: 0,
       pair: "",
       options: [],
+      rawUserInput: 0,
+      convertIcon: "&#11138",
     };
   },
   mounted() {
@@ -67,17 +70,44 @@ export default {
   },
   unmounted() {
     //chrome.storage.sendMessage({message: "remove-item", key: "prices"})
+    chrome.storage.sync.clear();
   },
   methods: {
-    calculatePrice(event) {
+    updatePrice(event) {
       if (!this.from || !this.to) {
         this.error = "must select a pair";
         return;
       }
       this.pair = `${this.from}-${this.to}`;
       this.price = (this.quotes[this.pair] * event.target.value).toFixed(2);
+      this.rawUserInput = event.target.value
       this.error = null;
     },
+    switchCurrency() {
+      let tempTo = this.to
+      let tempFrom = this.from
+
+      this.from = tempTo
+      this.to = tempFrom
+      this.realCalc(this.price)
+    },
+    toChangeCurrency(event) {
+      this.to = event.target.value
+      this.realCalc(this.rawUserInput)
+
+    },
+    fromChangeCurrency(event) {
+      this.from = event.target.value
+      this.realCalc(this.rawUserInput)
+    },
+    realCalc(price) {
+      if (!this.from || !this.to) {
+        return;
+      }
+      this.pair = `${this.from}-${this.to}`;
+      this.price = (this.quotes[this.pair] * price).toFixed(2);
+      this.error = null;
+    }
   },
 };
 </script>
@@ -115,6 +145,17 @@ html {
 }
 #to {
   width: 100px;
+  margin: 0 0 15px 0;
+  height: 35px;
+  background-color: #efefef;
+  border: 0.3px solid #3c3c3c7b;
+  border-radius: 1px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+}
+#switch {
+  width: 40px;
   margin: 0 0 15px 0;
   height: 35px;
   background-color: #efefef;
